@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
 public class teleop extends LinearOpMode {
@@ -15,6 +16,10 @@ public class teleop extends LinearOpMode {
         DcMotor bL = hardwareMap.dcMotor.get("backLeft");
         DcMotor fR = hardwareMap.dcMotor.get("frontRight");
         DcMotor bR = hardwareMap.dcMotor.get("backRight");
+
+        fL.setDirection(DcMotorSimple.Direction.REVERSE);
+        bL.setDirection(DcMotorSimple.Direction.REVERSE);
+        fR.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
 
