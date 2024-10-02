@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 
 @Autonomous
-public class blueSideLeft extends LinearOpMode {
+public class leftAuto extends LinearOpMode {
     private DcMotor fL, bL, fR, bR;
 
     @Override
