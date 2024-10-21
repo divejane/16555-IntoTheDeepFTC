@@ -18,10 +18,11 @@ public class teleop extends LinearOpMode {
         DcMotor fR  = hardwareMap.dcMotor.get("frontRight");
         DcMotor bR  = hardwareMap.dcMotor.get("backRight");
 
-        Servo lClaw = hardwareMap.servo.get("lClaw");
-        Servo rClaw = hardwareMap.servo.get("rClaw");
+//        Servo lClaw = hardwareMap.servo.get("lClaw");
+  //      Servo rClaw = hardwareMap.servo.get("rClaw");
 
         DcMotor armLift = hardwareMap.dcMotor.get("armLift");
+        DcMotor armExtend = hardwareMap.dcMotor.get("armExtend");
 
         fL.setDirection(DcMotorSimple.Direction.REVERSE);
         bL.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -56,7 +57,8 @@ public class teleop extends LinearOpMode {
             // p2
 
             armLift.setPower(gamepad2.left_stick_y);
-
+            armExtend.setPower(gamepad2.right_stick_y);
+/**
             if (gamepad2.a) {
 
                 lClaw.setPosition(1);
@@ -69,7 +71,7 @@ public class teleop extends LinearOpMode {
                 lClaw.setPosition(0);
                 rClaw.setPosition(0);
 
-            }
+            }**/
         }
     }
 }
