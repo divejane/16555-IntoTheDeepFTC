@@ -20,11 +20,6 @@ public class rightAuto extends LinearOpMode {
         fR = hardwareMap.dcMotor.get("frontRight");
         bR = hardwareMap.dcMotor.get("backRight");
 
-        DcMotor armMotor = hardwareMap.dcMotor.get("armMotor");
-
-        Servo lClaw = hardwareMap.servo.get("lclaw");
-        Servo rClaw = hardwareMap.servo.get("rclaw");
-
         fL.setDirection(DcMotorSimple.Direction.REVERSE);
         bL.setDirection(DcMotorSimple.Direction.REVERSE);
         fR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -36,29 +31,42 @@ public class rightAuto extends LinearOpMode {
         while (opModeIsActive()) {
 
             // put the thingy on the thingy
-            drive(50,50,50,50,0.5);
-            strafe(-500, 0.5);
-            drive(50,50,50,50, 0.5);
-            strafe(500, 0.5);
+            strafe(-1500, 0.5);
+            sleep(500);
+
+            strafe(550, 0.5);
+            sleep(500);
+
+            drive(2250,2250,2250,2250, 0.5);
+            sleep(500);
+
+            drive(-950,950,-950,950,0.5);
+            sleep(500);
 
             // put the things in the thing zone
             for (int x = 0; x < 2; x++) {
 
-                drive(-50,-50,-50,-50, 0.5);
-                drive(50,50,50,50, 0.5);
-                strafe(50, 0.5);
+                drive(350,350,350,350, 0.5);
+                sleep(250);
 
+                strafe(-2250,0.5);
+                sleep(250);
+
+                strafe(2250, 0.5);
+                sleep(250);
             }
+            drive(100,100,100,100, 0.5);
+            sleep(250);
 
-            drive(-50,-50,-50,-50, 0.5);
-
+            strafe(-2250,0.5);
+            sleep(50000);
         }
     }
 
     // + right
     public void strafe(int dir, double power) {
 
-        drive(dir, dir, -dir, -dir, power);
+        drive(-dir, dir, dir, -dir, power);
 
     }
 
@@ -71,7 +79,7 @@ public class rightAuto extends LinearOpMode {
 
         bR.setTargetPosition(rB);
         bL.setTargetPosition(lB);
-        fR.setTargetPosition(rF);
+        fR.setTargetPosition(-rF);
         fL.setTargetPosition(lF);
 
         bR.setPower(power);
@@ -94,5 +102,5 @@ public class rightAuto extends LinearOpMode {
         fR.setPower(0);
         fL.setPower(0);
     }
-    
+
 }
