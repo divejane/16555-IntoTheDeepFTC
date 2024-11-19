@@ -43,7 +43,6 @@ public class leftAuto extends LinearOpMode {
             drive(-950,950,-950,950,0.5);
             sleep(500);
 
-
             drive(-450,-450,-450,-450, 0.5);
             sleep(250);
 
