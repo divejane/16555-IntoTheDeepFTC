@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -18,14 +17,13 @@ public class teleop extends LinearOpMode {
         DcMotor fR  = hardwareMap.dcMotor.get("frontRight");
         DcMotor bR  = hardwareMap.dcMotor.get("backRight");
 
-        Servo flipServo = hardwareMap.servo.get("flipServo");
-        Servo spinServo = hardwareMap.servo.get("spinServo");
+        DcMotor l_lift = hardwareMap.dcMotor.get("l_lift");
+        DcMotor r_lift  = hardwareMap.dcMotor.get("r_lift");
 
-        DcMotor armLift = hardwareMap.dcMotor.get("armLift");
-        DcMotor armExtend = hardwareMap.dcMotor.get("armExtend");
+        DcMotor fbar_base  = hardwareMap.dcMotor.get("fbar_base");
 
-        fL.setDirection(DcMotorSimple.Direction.REVERSE);
-        fR.setDirection(DcMotorSimple.Direction.REVERSE);
+        Servo fbar_servo   = hardwareMap.servo.get("fbar_servo");
+        Servo clawServo    = hardwareMap.servo.get("clawServo");
 
         waitForStart();
 
@@ -33,19 +31,19 @@ public class teleop extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+
             double forward    =  gamepad1.left_stick_y;
             double strafe     =  gamepad1.left_stick_x;
-            double turn       =  -gamepad1.right_stick_x;
-            double fP_start_pos = flipServo.getPosition();
+            double turn       =  -gamepad1.right_stick_x*.5;
 
             //  Maximum possible power sent to a motor is -1 or 1, but we can sometimes get values from
             //  (forward + strafe + turn) that exceed -1 or 1, so we have to normalize all motors' power
             //  to keep their speed proportional to each other in the off-chance that this does happen
             double denominator = Math.max(Math.abs(forward) + Math.abs(strafe) + Math.abs(turn), 1);
 
-            double fLPower  = -forward + strafe - turn / denominator;
+            double fLPower  =  forward - strafe + turn / denominator;
             double bLPower  =  forward + strafe + turn / denominator;
-            double fRPower  =  forward + strafe - turn / denominator;
+            double fRPower  = -forward - strafe + turn / denominator;
             double bRPower  = -forward + strafe + turn / denominator;
 
             fL.setPower(fLPower);
@@ -55,22 +53,28 @@ public class teleop extends LinearOpMode {
 
 
             // p2
+            double lift_power     = gamepad2.left_stick_y-0.05;
+            l_lift.setPower(lift_power);
+            r_lift.setPower(-lift_power);
 
-            armLift.setPower((gamepad2.left_stick_y*0.4)-0.125);
-            armExtend.setPower(gamepad2.right_stick_y);
+            fbar_base.setPower((-gamepad2.right_stick_y*.5)+0.07);
 
-            if (gamepad2.dpad_down) {
-                flipServo.setPosition(0.09);
-            }
             if (gamepad2.dpad_up) {
-                flipServo.setPosition(fP_start_pos);
+                fbar_servo.setPosition(1);
+            }
+            if (gamepad2.dpad_left) {
+                fbar_servo.setPosition(.65);
+            }
+            if (gamepad2.dpad_down) {
+                fbar_servo.setPosition(.25);
             }
 
             if (gamepad2.a) {
-                spinServo.setPosition(-1);
+                clawServo.setPosition(1);
             }
+
             if (gamepad2.b) {
-                spinServo.setPosition(1);
+                clawServo.setPosition(.75);
             }
         }
     }

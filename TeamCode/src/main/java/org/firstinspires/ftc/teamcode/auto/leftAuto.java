@@ -30,6 +30,7 @@ public class leftAuto extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+
             // put the thingy on the thingy
             strafe(750, 0.5);
             sleep(500);

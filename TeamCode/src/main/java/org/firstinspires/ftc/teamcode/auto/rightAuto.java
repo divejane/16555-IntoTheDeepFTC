@@ -20,28 +20,31 @@ public class rightAuto extends LinearOpMode {
         fR = hardwareMap.dcMotor.get("frontRight");
         bR = hardwareMap.dcMotor.get("backRight");
 
+
         fL.setDirection(DcMotorSimple.Direction.REVERSE);
-        bL.setDirection(DcMotorSimple.Direction.REVERSE);
         fR.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        Servo flipServo = hardwareMap.servo.get("flipServo");
+
+        flipServo.setPosition(0);
 
         waitForStart();
 
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-
             // put the thingy on the thingy
-            strafe(-1500, 0.5);
-            sleep(500);
+            strafe(1500, 0.5);
+            sleep(250);
 
-            strafe(550, 0.5);
-            sleep(500);
+            strafe(-350, 0.5);
+            sleep(250);
 
             drive(2250,2250,2250,2250, 0.5);
-            sleep(500);
+            sleep(250);
 
-            drive(-950,950,-950,950,0.5);
-            sleep(500);
+            drive(-900,500,500,-900,0.5);
+            sleep(250);
 
             // put the things in the thing zone
             for (int x = 0; x < 2; x++) {
@@ -49,16 +52,16 @@ public class rightAuto extends LinearOpMode {
                 drive(350,350,350,350, 0.5);
                 sleep(250);
 
-                strafe(-2250,0.5);
+                strafe(2250,0.5);
                 sleep(250);
 
-                strafe(2250, 0.5);
+                strafe(-2250, 0.5);
                 sleep(250);
             }
             drive(100,100,100,100, 0.5);
             sleep(250);
 
-            strafe(-2250,0.5);
+            strafe(2250,0.5);
             sleep(50000);
         }
     }
@@ -66,7 +69,7 @@ public class rightAuto extends LinearOpMode {
     // + right
     public void strafe(int dir, double power) {
 
-        drive(-dir, dir, dir, -dir, power);
+        drive(dir, -dir, dir, -dir, power);
 
     }
 
@@ -78,9 +81,9 @@ public class rightAuto extends LinearOpMode {
         fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         bR.setTargetPosition(rB);
-        bL.setTargetPosition(lB);
-        fR.setTargetPosition(-rF);
-        fL.setTargetPosition(lF);
+        bL.setTargetPosition(-lB);
+        fR.setTargetPosition(rF);
+        fL.setTargetPosition(-lF);
 
         bR.setPower(power);
         bL.setPower(power);
